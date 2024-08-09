@@ -44,16 +44,28 @@ def predictions():
 @app.route('/refresh')
 def refresh():
     try:
-        # Run the scripts using the full path to the Python interpreter in your virtual environment
+        # Record the latest date before running the data insertion script
+        old_latest_date = get_latest_date()
+
+        # Run the data insertion script
         subprocess.run(['/home/ubuntu/myenv/bin/python', 'insert_api_data.py'], check=True)
-        subprocess.run(['/home/ubuntu/myenv/bin/python', 'model.py'], check=True)
-        latest_date = get_latest_date()
-        if latest_date:
-            return jsonify({'success': True, 'latest_date': latest_date.strftime('%Y-%m-%d')})
+
+        # Record the latest date after running the data insertion script
+        new_latest_date = get_latest_date()
+
+        # Check if there is new data
+        if old_latest_date != new_latest_date:
+            # Run the model script only if new data is present
+            subprocess.run(['/home/ubuntu/myenv/bin/python', 'model.py'], check=True)
+            message = 'Data refreshed and model updated.'
         else:
-            return jsonify({'success': False, 'message': 'Failed to fetch latest date after refresh.'})
+            message = 'No new data. Model not updated.'
+
+        return jsonify({'success': True, 'latest_date': new_latest_date.strftime('%Y-%m-%d'), 'message': message})
+        
     except subprocess.CalledProcessError as e:
         return jsonify({'success': False, 'message': f'Failed to refresh data. Error: {e}'})
+
 
 @app.route('/test-tf')
 def test_tf():

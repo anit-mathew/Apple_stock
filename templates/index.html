@@ -64,6 +64,11 @@
         #latest-date {
             font-weight: bold;
         }
+
+        #message {
+            color: #d9534f; /* Red color for messages */
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -74,6 +79,7 @@
     <pre id="predictions">Loading predictions...</pre>
     <button id="refresh-button">Refresh Data</button>
     <p>Latest Data Date: <span id="latest-date">{{ latest_date }}</span></p>
+    <p id="message"></p>
 
     <script>
         document.getElementById('refresh-button').addEventListener('click', function () {
@@ -83,6 +89,10 @@
                     if (data.success) {
                         // Update the latest date on the page
                         document.getElementById('latest-date').textContent = data.latest_date;
+
+                        // Display the message
+                        document.getElementById('message').textContent = data.message;
+
                         // Reload the plot and predictions
                         document.querySelector('img').src = '/plot.png?' + new Date().getTime(); // Cache-busting
                         fetch('/predictions.txt')
