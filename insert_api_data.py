@@ -34,7 +34,10 @@ def extract_data(data):
         print(df.columns)  # Print the columns to verify their names
         df.reset_index(inplace=True)
         df.rename(columns={'index': 'Date', '1. open': 'Open', '2. high': 'High', '3. low': 'Low', '4. close': 'Close', '5. volume': 'Volume'}, inplace=True)
-        df['Date'] = pd.to_datetime(df['Date'])
+        
+        # Convert the 'Date' column to datetime.date
+        df['Date'] = pd.to_datetime(df['Date']).dt.date
+        
         df['Open'] = df['Open'].astype(float)
         df['High'] = df['High'].astype(float)
         df['Low'] = df['Low'].astype(float)
@@ -43,6 +46,7 @@ def extract_data(data):
         return df
     else:
         raise ValueError("Error fetching data from Alpha Vantage")
+
 
 # Insert data from API into the database
 def insert_api_data(cursor, df):
@@ -53,6 +57,7 @@ def insert_api_data(cursor, df):
             VALUES (%s, %s, %s, %s, %s, %s)
             """
             cursor.execute(insert_query, tuple(row))
+
 
 # Function to check if table exists
 def table_exists(cursor, table_name):
