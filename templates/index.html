@@ -1,20 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Price Prediction</title>
+    <title>Apple Stock Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #1a73e8;
+        }
+
+        h2 {
+            color: #555;
+        }
+
+        img {
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #155cb0;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        #latest-date {
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Apple Stock Price Prediction</h1>
     <img src="/plot.png" alt="Stock Price Prediction Plot">
     <h2>Future Predictions</h2>
-    <pre id="predictions"></pre>
+    <pre id="predictions">Loading predictions...</pre>
     <button id="refresh-button">Refresh Data</button>
     <p>Latest Data Date: <span id="latest-date">{{ latest_date }}</span></p>
 
     <script>
-        document.getElementById('refresh-button').addEventListener('click', function() {
+        document.getElementById('refresh-button').addEventListener('click', function () {
             fetch('/refresh')
                 .then(response => response.json())
                 .then(data => {
@@ -42,4 +104,5 @@
             });
     </script>
 </body>
+
 </html>

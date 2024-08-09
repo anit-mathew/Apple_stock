@@ -18,10 +18,7 @@ def fetch_stock_data(api_key, symbol, interval):
     }
     response = requests.get(url, params=params)
     data = response.json()
-    
-    # Debugging: print the entire response
-    print("API Response:", data)
-    
+     
     # Check for errors in the API response
     if 'Error Message' in data:
         raise ValueError(f"Alpha Vantage API Error: {data['Error Message']}")
