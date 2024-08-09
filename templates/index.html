@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+</head>
+<body>
+    <h1>Apple Stock Price Prediction</h1>
+    <img src="/plot.png" alt="Stock Price Prediction Plot">
+    <h2>Future Predictions</h2>
+    <pre id="predictions"></pre>
+    <button id="refresh-button">Refresh Data</button>
+    <p>Latest Data Date: <span id="latest-date">{{ latest_date }}</span></p>
+
+    <script>
+        document.getElementById('refresh-button').addEventListener('click', function() {
+            fetch('/refresh')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the latest date on the page
+                        document.getElementById('latest-date').textContent = data.latest_date;
+                        // Reload the plot and predictions
+                        document.querySelector('img').src = '/plot.png?' + new Date().getTime(); // Cache-busting
+                        fetch('/predictions.txt')
+                            .then(response => response.text())
+                            .then(text => {
+                                document.getElementById('predictions').textContent = text;
+                            });
+                    } else {
+                        alert('Failed to refresh data: ' + data.message);
+                    }
+                });
+        });
+
+        // Fetch initial predictions
+        fetch('/predictions.txt')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('predictions').textContent = text;
+            });
+    </script>
+</body>
+</html>

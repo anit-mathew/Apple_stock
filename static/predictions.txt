@@ -1,0 +1,11 @@
+Current Date: 2024-08-08 00:00:00
+Date: 2024-08-09 00:00:00, Predicted Close Price: 212.07534951303364
+Date: 2024-08-10 00:00:00, Predicted Close Price: 194.90154174436285
+Date: 2024-08-11 00:00:00, Predicted Close Price: 179.97778047912556
+Date: 2024-08-12 00:00:00, Predicted Close Price: 164.9477530633278
+Date: 2024-08-13 00:00:00, Predicted Close Price: 150.2434088695665
+Date: 2024-08-14 00:00:00, Predicted Close Price: 136.2490076416383
+Date: 2024-08-15 00:00:00, Predicted Close Price: 123.1613810458302
+Date: 2024-08-16 00:00:00, Predicted Close Price: 111.11594355922597
+Date: 2024-08-17 00:00:00, Predicted Close Price: 100.22014377770117
+Date: 2024-08-18 00:00:00, Predicted Close Price: 90.58040877632659
